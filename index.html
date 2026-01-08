@@ -2,67 +2,110 @@
 <html>
 <head>
     <title>邓广坚 - 产品工作双周汇报</title>
+    <!-- 引入更加现代的字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
+        /* --- 变量定义：商务配色体系 --- */
+        :root {
+            --bg-color: #f3f4f6;
+            --sidebar-bg: #ffffff;
+            --text-main: #111827;
+            --text-secondary: #6b7280;
+            --primary-blue: #2563eb;
+            --accent-bg: #eff6ff;
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            --card-hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
+            
+            /* 评级颜色 */
+            --tier-a-color: #059669; /* 翡翠绿 */
+            --tier-a-bg: #ecfdf5;
+            --tier-b-color: #d97706; /* 琥珀黄 */
+            --tier-b-bg: #fffbeb;
+            --tier-c-color: #dc2626; /* 宝石红 */
+            --tier-c-bg: #fef2f2;
+        }
+
         /* 全局重置 */
         body {
-            font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-family: 'Noto Sans SC', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-main);
             margin: 0;
             padding: 0;
-            background: linear-gradient(180deg, #ffffff 40%, #e6f4ff 100%);
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 20px 20px;
             display: flex;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* --- 侧边栏 --- */
+        /* 滚动条美化 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* --- 侧边栏：极简磨砂风格 --- */
         .sidebar {
-            width: 210px; 
-            background: transparent;
+            width: 240px; 
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
             flex-shrink: 0;
             height: 100vh;
-            border-right: 1px solid #dbe2e8; 
-            padding-top: 45px;
+            border-right: 1px solid rgba(0,0,0,0.05); 
+            padding: 50px 0;
             z-index: 10;
             display: flex;
             flex-direction: column;
+            box-shadow: 5px 0 20px rgba(0,0,0,0.02);
         }
 
-        /* 侧边栏头部信息 */
         .sidebar-header {
-            padding: 0 25px 21px 25px; 
-            border-bottom: 2px solid #f0f2f5; 
-            margin-bottom: 20px;
+            padding: 0 32px 30px 32px; 
+            margin-bottom: 10px;
         }
         .sidebar-header .name {
-            font-size: 22px; 
-            font-weight: 700; 
-            color: #1890ff; 
+            font-size: 24px; 
+            font-weight: 900; 
+            color: var(--text-main); 
             line-height: 1.2;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
         }
         .sidebar-header .role {
-            font-size: 16px; 
-            color: #333; 
-            font-weight: 700; 
-            line-height: 1.6; 
+            font-size: 14px; 
+            color: var(--text-secondary); 
+            font-weight: 500; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .sidebar-nav ul { list-style-type: none; padding: 0; margin: 0; }
+        .sidebar-nav ul { list-style-type: none; padding: 0 16px; margin: 0; }
+        .sidebar-nav ul li { margin-bottom: 8px; }
         .sidebar-nav ul li a {
             display: flex;
             align-items: center;
-            padding: 15px 25px;
+            padding: 12px 20px;
             text-decoration: none;
-            color: #555;
-            transition: all 0.2s;
-            border-left: 4px solid transparent;
-            font-size: 17px;
-            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 12px;
         }
-        .sidebar-nav ul li a.active { background-color: rgba(24, 144, 255, 0.08); color: #1890ff; border-left-color: #1890ff; }
-        .sidebar-nav ul li a svg { width: 24px; height: 24px; margin-right: 12px; }
+        .sidebar-nav ul li a:hover {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+        .sidebar-nav ul li a.active { 
+            background-color: var(--text-main); 
+            color: #fff; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .sidebar-nav ul li a svg { width: 20px; height: 20px; margin-right: 12px; transition: 0.3s; }
+        .sidebar-nav ul li a.active svg { fill: #fff; }
+        .sidebar-nav ul li a:not(.active) svg { fill: #9ca3af; }
 
         /* --- 主内容区 --- */
         .main-content {
@@ -73,218 +116,333 @@
             scroll-behavior: smooth;
         }
 
-        /* --- 页面外容器 --- */
+        /* --- 页面容器 --- */
         .section-container {
             height: 100vh;
             width: 100%;
-            padding: 40px 50px; 
+            padding: 40px 60px; 
             box-sizing: border-box;
             display: flex;
             flex-direction: column; 
+            justify-content: center; 
             align-items: center; 
             scroll-snap-align: start;
             scroll-snap-stop: always;
         }
 
-        /* --- 汇报大框 (白色页面) --- */
+        /* --- 汇报大框 (拟态风格) --- */
         .report-paper {
             background: #fff;
             width: 100%;
-            max-width: 1300px;
-            height: 72vh; 
-            border-radius: 12px;
-            border: 1px solid #dee5ed;
-            padding: 40px 50px;
+            max-width: 1400px;
+            max-height: 90vh; 
+            min-height: 70vh;
+            border-radius: 24px;
+            padding: 50px 60px;
             display: flex;
             flex-direction: column;
-            overflow: hidden; 
             position: relative; 
-            margin-bottom: 20px; 
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(24, 144, 255, 0.12);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255,255,255,0.8);
         }
 
         /* --- 标题栏 --- */
         .report-header {
             display: flex;
             align-items: center;
-            border-bottom: 2px solid #f0f2f5;
-            padding-bottom: 20px;
+            padding-bottom: 25px;
             margin-bottom: 30px; 
+            border-bottom: 1px solid #f3f4f6;
             flex-shrink: 0;
         }
-        .report-header h1 { font-size: 26px; margin: 0; color: #1a1a1a; font-weight: 600; line-height: 1; }
+        .report-header h1 { 
+            font-size: 28px; 
+            margin: 0; 
+            color: var(--text-main); 
+            font-weight: 800; 
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+        .report-header h1::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -27px;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-blue);
+            border-radius: 2px;
+        }
         
-        /* --- 内部卡片动效 --- */
+        /* --- 通用交互 --- */
         .hover-trigger {
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid transparent;
         }
         .hover-trigger:hover {
-            transform: translateY(-8px) scale(1.03); 
-            box-shadow: 0 15px 30px rgba(24, 144, 255, 0.15);
-            border-color: #bae7ff;
-            z-index: 5;
+            transform: translateY(-5px); 
+            box-shadow: var(--card-hover-shadow);
+            border-color: rgba(37, 99, 235, 0.1);
         }
-        .progress-card.hover-trigger:hover {
-            transform: translateY(-12px) scale(1.08); 
-            box-shadow: 0 25px 45px rgba(24, 144, 255, 0.2);
-            z-index: 10;
-        }
-        .tier-a.hover-trigger:hover { box-shadow: 0 15px 30px rgba(82, 196, 26, 0.25); border-color: #b7eb8f; }
-        .tier-b.hover-trigger:hover { box-shadow: 0 15px 30px rgba(250, 173, 20, 0.25); border-color: #ffe58f; }
-        .tier-c.hover-trigger:hover { box-shadow: 0 15px 30px rgba(245, 34, 45, 0.25); border-color: #ffccc7; }
 
-        /* --- 第1页：项目进度 --- */
+        /* ================= 第1页：项目进度 ================= */
         .progress-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr; 
-            gap: 30px; 
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr); 
+            gap: 25px; 
             flex-grow: 1; 
-            margin-bottom: 10px; 
+            height: 100%;
         }
         .progress-card {
-            background: #fff;
-            border: 1px solid #eef2f8;
-            padding: 30px;
-            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            padding: 35px;
+            border-radius: 16px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start; 
-        }
-        .progress-card h3 { 
-            margin: 0 0 18px 0; 
-            font-size: 20px; 
-            color: #1890ff; 
-            display: flex; 
-            align-items: center;
-        }
-        .progress-card h3::before {
-            content: ""; display: inline-block; width: 5px; height: 20px; 
-            background: #1890ff; margin-right: 12px; border-radius: 2px;
-        }
-        .progress-list { list-style: none; padding: 0; margin: 0; }
-        .progress-list li {
-            padding: 12px 18px;
-            background: #f8f9fb;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            font-size: 15px; 
-            color: #444;
-            line-height: 1.6;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* --- 第2页：战略评级 --- */
+        /* 1. 夸张的放大效果 (Scale 1.05 + TranslateY -12px) */
+        .progress-card.hover-trigger:hover {
+            transform: translateY(-12px) scale(1.05); 
+            box-shadow: 0 30px 60px -12px rgba(37, 99, 235, 0.15); 
+            z-index: 10;
+        }
+
+        /* 装饰性左边条 */
+        .progress-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 6px;
+            background: var(--primary-blue);
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .progress-card:hover::before { opacity: 1; }
+
+        .progress-card h3 { 
+            margin: 0 0 20px 0; 
+            font-size: 20px; 
+            color: var(--text-main); 
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* 1. 图标改为 ABCD */
+        .index-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: #eff6ff; 
+            color: var(--primary-blue);
+            font-weight: 900;
+            border-radius: 8px;
+            margin-right: 12px;
+            font-size: 18px;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .progress-list { list-style: none; padding: 0; margin: 0; }
+        .progress-list li {
+            padding: 12px 0;
+            border-bottom: 1px dashed #f3f4f6;
+            font-size: 15px; 
+            color: var(--text-secondary);
+            line-height: 1.6;
+            display: flex;
+            align-items: flex-start;
+        }
+        .progress-list li:last-child { border-bottom: none; }
+        .progress-list li::before {
+            content: "•";
+            color: var(--primary-blue);
+            font-weight: bold;
+            display: inline-block; 
+            width: 1em;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+        /* ================= 第2页：战略评级 ================= */
         .ratings-wrapper {
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
             flex-grow: 1; 
-            margin-bottom: 20px;
             align-items: stretch; 
         }
         .rating-item {
-            border-radius: 10px;
-            padding: 20px 10px; 
+            border-radius: 16px;
+            padding: 25px 15px; 
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
             text-align: center;
-            border: 1px solid #f0f0f0;
+            border: 1px solid #f3f4f6;
             background: #fff;
             position: relative;
-            min-height: 0; 
         }
         .rating-item.clickable { cursor: pointer; } 
         
         .rating-item strong { 
             font-size: 16px; 
-            color: #333; 
-            height: 40px; 
+            color: var(--text-main); 
+            min-height: 48px; 
             display: flex; 
             align-items: center; 
             justify-content: center;
             margin-bottom: 15px;
-            line-height: 1.2;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .tier-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
         }
 
         .rating-main-info {
             display: flex;
             flex-direction: column;
-            margin-bottom: 10px; 
+            align-items: center;
+            margin-bottom: 15px; 
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f9fafb;
         }
-        .rating-item .tier { 
-            font-size: 18px; 
-            font-weight: 800; 
-            letter-spacing: 0.5px;
-            order: 1; 
-            margin-bottom: 8px;
-        }
+        
         .rating-item .score { 
-            font-size: 22px; 
-            font-weight: 800; 
+            font-size: 32px; 
+            font-weight: 900; 
             line-height: 1; 
-            order: 2; 
+            font-family: 'Inter', sans-serif; 
         }
 
+        /* 2. 详细信息：字体加大，颜色加深 */
         .rating-item .details { 
-            background: transparent; 
-            padding: 10px 0; 
+            padding: 5px 0; 
             margin-top: auto; 
-            font-size: 15px; 
-            color: #333; 
-            line-height: 1.6; 
-            font-weight: 400;
+            font-size: 14px;  
+            color: #1f2937;   /* 深黑灰 */
+            font-weight: 500; /* 加粗 */
+            line-height: 1.8; 
+            text-align: left;
+            width: 100%;
+            padding-left: 10px;
         }
-        .rating-item .details span { display: block; padding: 2px 0; }
-        .tier-a { border-top: 5px solid #52c41a; background: linear-gradient(180deg, #f6ffed 0%, #ffffff 50px); }
-        .tier-a .score, .tier-a .tier { color: #52c41a; }
-        .tier-b { border-top: 5px solid #faad14; background: linear-gradient(180deg, #fffbe6 0%, #ffffff 50px); }
-        .tier-b .score, .tier-b .tier { color: #faad14; }
-        .tier-c { border-top: 5px solid #f5222d; background: linear-gradient(180deg, #fff1f0 0%, #ffffff 50px); }
-        .tier-c .score, .tier-c .tier { color: #f5222d; }
+        .rating-item .details span { 
+            display: block; 
+            position: relative;
+            padding-left: 10px;
+        }
+        .rating-item .details span::before {
+            content: ''; position: absolute; left: 0; top: 10px; width: 4px; height: 4px; border-radius: 50%; background: #9ca3af;
+        }
 
-        /* --- 第3页：具体分析 --- */
+        /* TIER 配色逻辑 */
+        .tier-a { background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%); border-top: 4px solid var(--tier-a-color); }
+        .tier-a .tier-badge { background: var(--tier-a-bg); color: var(--tier-a-color); }
+        .tier-a .score { color: var(--tier-a-color); }
+
+        .tier-b { background: linear-gradient(180deg, #ffffff 0%, #fffbeb 100%); border-top: 4px solid var(--tier-b-color); }
+        .tier-b .tier-badge { background: var(--tier-b-bg); color: var(--tier-b-color); }
+        .tier-b .score { color: var(--tier-b-color); }
+
+        .tier-c { background: linear-gradient(180deg, #ffffff 0%, #fef2f2 100%); border-top: 4px solid var(--tier-c-color); }
+        .tier-c .tier-badge { background: var(--tier-c-bg); color: var(--tier-c-color); }
+        .tier-c .score { color: var(--tier-c-color); }
+
+
+        /* ================= 第3页：具体分析 ================= */
         .page-3-layout {
             display: flex;
             flex-direction: column;
             flex-grow: 1; 
+            gap: 30px;
         }
         .analysis-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px; 
-            margin-bottom: 30px;
+            gap: 30px; 
         }
         .analysis-card {
             background: #fff;
-            border: 1px solid #eef2f8;
-            padding: 30px; 
-            border-radius: 12px;
+            border: 1px solid #f3f4f6;
+            padding: 35px; 
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
-        .analysis-card h3 { margin: 0 0 20px 0; font-size: 20px; color: #333; }
-        .analysis-card p { 
-            font-size: 16px; margin-bottom: 15px; 
-            display: flex; align-items: center; color: #555;
-        }
-        .score-tag { 
-            background: #e6f7ff; color: #1890ff; font-weight: 700; 
-            padding: 4px 10px; border-radius: 4px; margin-right: 15px; font-size: 14px; 
-            border: 1px solid #91d5ff; min-width: 35px; text-align: center;
+        .analysis-card h3 { 
+            margin: 0 0 25px 0; 
+            font-size: 20px; 
+            color: var(--text-main); 
+            border-left: 4px solid var(--text-main);
+            padding-left: 15px;
         }
         
-        .summary-box {
-            background: linear-gradient(135deg, #f8fbff 0%, #eef6ff 100%);
-            padding: 30px; 
-            border-radius: 12px;
-            color: #003a8c;
-            border-left: 6px solid #1890ff;
-            border: 1px solid #bae7ff;
-            border-left-width: 6px;
-            margin-bottom: auto; 
+        .analysis-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
         }
-        .summary-box h3 { margin: 0 0 15px 0; font-size: 18px; color: #0050b3; }
-        .summary-box ul { margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.8; }
+        .score-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-size: 14px;
+            border: 2px solid #e5e7eb;
+        }
+        .analysis-content {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+        .analysis-content strong {
+            color: var(--text-main);
+            margin-right: 5px;
+        }
+        
+        /* 3. 核心错位总结：回归第一版的深色配色，但改为渐变 */
+        .summary-box {
+            /* 使用第一版(#1e293b)风格的深色渐变：Slate-800 到 Slate-700 */
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            padding: 40px; 
+            border-radius: 16px;
+            color: #ffffff;
+            margin-top: auto; 
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(30, 41, 59, 0.3);
+        }
+        /* 装饰背景圆环 */
+        .summary-box::after {
+            content: ''; position: absolute; top: -50px; right: -50px; width: 200px; height: 200px;
+            background: rgba(255,255,255,0.05); border-radius: 50%;
+        }
+        .summary-box h3 { margin: 0 0 20px 0; font-size: 18px; color: #fff; display: flex; align-items: center;}
+        .summary-box h3::before {
+            content: "💡"; margin-right: 10px;
+        }
+        .summary-box ul { margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.8; color: #cbd5e1; }
 
     </style>
 </head>
@@ -299,15 +457,15 @@
         <nav class="sidebar-nav">
             <ul>
                 <li><a href="#section-progress" class="active">
-                    <svg viewBox="0 0 24 24" fill="#1890ff"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
                     项目进度
                 </a></li>
                 <li><a href="#section-ratings">
-                    <svg viewBox="0 0 24 24" fill="#722ed1"><path d="M12 2l-9 4v12l9 4 9-4V6l-9-4zm0 2.5l7 3.11V11h-2.5l-1.5-3-3 6-3-6-1.5 3H5V7.61L12 4.5zM7 16l1.5-3h7l1.5 3H7z" opacity="0.3"/><path d="M12 2L3 6v12l9 4 9-4V6l-9-4zm0 2.5l7 3.11V11h-2.5l-1.5-3-3 6-3-6-1.5 3H5V7.61L12 4.5zM17 16H7l1.5-3h7l1.5 3z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2l-9 4v12l9 4 9-4V6l-9-4zm0 2.5l7 3.11V11h-2.5l-1.5-3-3 6-3-6-1.5 3H5V7.61L12 4.5zM7 16l1.5-3h7l1.5 3H7z" opacity="0.3"/><path d="M12 2L3 6v12l9 4 9-4V6l-9-4zm0 2.5l7 3.11V11h-2.5l-1.5-3-3 6-3-6-1.5 3H5V7.61L12 4.5zM17 16H7l1.5-3h7l1.5 3z"/></svg>
                     产品战略审视
                 </a></li>
                 <li><a href="#section-analysis">
-                    <svg viewBox="0 0 24 24" fill="#fa8c16"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg>
                     具体分析
                 </a></li>
             </ul>
@@ -324,35 +482,46 @@
                 </div>
                 <div class="progress-grid">
                     <div class="progress-card hover-trigger">
-                        <h3>美甲集尘器</h3>
+                        <h3>
+                            <div class="index-icon">A</div>
+                            美甲集尘器
+                        </h3>
                         <ul class="progress-list">
                             <li>2款ODMA已通过PDCP，正在推进TR4A下单</li>
                             <li>IRDA静音款已在ID设计阶段，下周二出第一版方案</li>
                         </ul>
                     </div>
                     <div class="progress-card hover-trigger">
-                        <h3>除螨吸尘器</h3>
+                        <h3>
+                            <div class="index-icon">B</div>
+                            除螨吸尘器
+                        </h3>
                         <ul class="progress-list">
                             <li>2款ODMA正在TR4功能性测试，问题已反馈厂家整改</li>
                             <li>IRDA款完成了无刷电机的样机，准备性能测试</li>
                         </ul>
                     </div>
                     <div class="progress-card hover-trigger">
-                        <h3>高速电吹风</h3>
+                        <h3>
+                            <div class="index-icon">C</div>
+                            高速电吹风
+                        </h3>
                         <ul class="progress-list">
                             <li>3款ODMA已通过TR2验证，正在完善PRD文档</li>
                             <li>IRDA款正在打磨概念</li>
                         </ul>
                     </div>
                     <div class="progress-card hover-trigger">
-                        <h3>扩香机</h3>
+                        <h3>
+                            <div class="index-icon">D</div>
+                            扩香机
+                        </h3>
                         <ul class="progress-list">
                             <li>Charter已完成，计划本月下旬发起TR1评审</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <!-- 底部导航已移除 -->
         </div>
 
         <!-- 第二页：产品战略审视 -->
@@ -366,7 +535,7 @@
                     <div class="rating-item tier-a hover-trigger">
                         <strong>光疗面罩</strong>
                         <div class="rating-main-info">
-                            <div class="tier">TIER A</div>
+                            <span class="tier-badge">TIER A</span>
                             <div class="score">6.5</div>
                         </div>
                         <div class="details">
@@ -381,7 +550,7 @@
                     <div class="rating-item tier-a hover-trigger">
                         <strong>扩香机</strong>
                         <div class="rating-main-info">
-                            <div class="tier">TIER A</div>
+                            <span class="tier-badge">TIER A</span>
                             <div class="score">7.5</div>
                         </div>
                         <div class="details">
@@ -396,7 +565,7 @@
                     <div class="rating-item tier-a hover-trigger">
                         <strong>香氛扩香油</strong>
                         <div class="rating-main-info">
-                            <div class="tier">TIER A</div>
+                            <span class="tier-badge">TIER A</span>
                             <div class="score">8.2</div>
                         </div>
                         <div class="details">
@@ -411,7 +580,7 @@
                     <div class="rating-item tier-a hover-trigger">
                         <strong>红光腰带</strong>
                         <div class="rating-main-info">
-                            <div class="tier">TIER A</div>
+                            <span class="tier-badge">TIER A</span>
                             <div class="score">7.2</div>
                         </div>
                         <div class="details">
@@ -426,7 +595,7 @@
                     <div class="rating-item tier-a hover-trigger">
                         <strong>IPL脱毛仪</strong>
                         <div class="rating-main-info">
-                            <div class="tier">TIER A</div>
+                            <span class="tier-badge">TIER A</span>
                             <div class="score">7.2</div>
                         </div>
                         <div class="details">
@@ -441,7 +610,7 @@
                     <div class="rating-item tier-b clickable hover-trigger" onclick="document.getElementById('section-analysis').scrollIntoView({behavior: 'smooth'})">
                         <strong>头戴式降噪耳机</strong>
                         <div class="rating-main-info">
-                            <div class="tier">TIER B</div>
+                            <span class="tier-badge">TIER B</span>
                             <div class="score">5.5</div>
                         </div>
                         <div class="details">
@@ -456,7 +625,7 @@
                     <div class="rating-item tier-c clickable hover-trigger" onclick="document.getElementById('section-analysis').scrollIntoView({behavior: 'smooth'})">
                         <strong>往复式剃须刀</strong>
                         <div class="rating-main-info">
-                            <div class="tier">TIER C</div>
+                            <span class="tier-badge">TIER C</span>
                             <div class="score">4.2</div>
                         </div>
                         <div class="details">
@@ -469,7 +638,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 底部导航已移除 -->
         </div>
 
         <!-- 第三页：具体分析 -->
@@ -482,15 +650,34 @@
                     <div class="analysis-container">
                         <div class="analysis-card hover-trigger">
                             <h3>头戴式降噪耳机</h3>
-                            <p><span class="score-tag">5.0</span> 技术: 声学算法、芯片能力缺失，难成壁垒</p>
-                            <p><span class="score-tag">6.0</span> 体验: 设计体验良好，但难透心智</p>
-                            <p><span class="score-tag">5.5</span> 商业: 高营销投入、低毛利、高供应链风险</p>
+                            <div class="analysis-row">
+                                <div class="score-circle">5.0</div>
+                                <div class="analysis-content"><strong>技术:</strong> 声学算法、芯片能力缺失，难成壁垒</div>
+                            </div>
+                            <div class="analysis-row">
+                                <div class="score-circle">6.0</div>
+                                <div class="analysis-content"><strong>体验:</strong> 设计体验良好，但难透心智</div>
+                            </div>
+                            <div class="analysis-row">
+                                <div class="score-circle">5.5</div>
+                                <div class="analysis-content"><strong>商业:</strong> 高营销投入、低毛利、高供应链风险</div>
+                            </div>
                         </div>
+
                         <div class="analysis-card hover-trigger">
                             <h3>往复式剃须刀</h3>
-                            <p><span class="score-tag">5.0</span> 技术: 能集成，无突破性差异</p>
-                            <p><span class="score-tag">4.0</span> 体验: 难破品牌心智，体验无惊喜</p>
-                            <p><span class="score-tag">6.0</span> 商业: 能卖货，难赚钱</p>
+                            <div class="analysis-row">
+                                <div class="score-circle">5.0</div>
+                                <div class="analysis-content"><strong>技术:</strong> 能集成，无突破性差异</div>
+                            </div>
+                            <div class="analysis-row">
+                                <div class="score-circle">4.0</div>
+                                <div class="analysis-content"><strong>体验:</strong> 难破品牌心智，体验无惊喜</div>
+                            </div>
+                            <div class="analysis-row">
+                                <div class="score-circle">6.0</div>
+                                <div class="analysis-content"><strong>商业:</strong> 能卖货，难赚钱</div>
+                            </div>
                         </div>
                     </div>
                     <div class="summary-box hover-trigger">
@@ -502,7 +689,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 底部导航已移除 -->
         </div>
 
     </div>
@@ -517,7 +703,7 @@
                 let current = '';
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
-                    if (mainContent.scrollTop >= (sectionTop - section.clientHeight / 2)) {
+                    if (mainContent.scrollTop >= (sectionTop - section.clientHeight / 3)) {
                         current = section.getAttribute('id');
                     }
                 });
@@ -529,7 +715,6 @@
                 });
             });
 
-            // 侧边栏的平滑滚动
             const smoothScrollLinks = document.querySelectorAll('.sidebar-nav ul li a');
             smoothScrollLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
